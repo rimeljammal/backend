@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 
 const User = mongoose.model('User');
-const pickedInfo = ['_id', 'name', 'email'];
+const pickedInfo = ['_id', 'name', 'email', 'favorites'];
 
 class Utils {
     static sanitizeUser(user)   {

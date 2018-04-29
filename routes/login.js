@@ -18,7 +18,8 @@ const endpoints = [
                 payload:    {
                     name: joi.string().min(5).required(),
                     email: joi.string().email().required(),
-                    password: joi.string().required()
+                    password: joi.string().required(),
+                    favorites: joi.array()
                 }
             }
         },

@@ -16,6 +16,9 @@ const UserSchema = new Schema({
     },
     salt:   {
         type: String
+    },
+    favorites:  {
+        type: [String]
     }
 });
 

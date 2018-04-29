@@ -3,9 +3,11 @@ const hapi = require('hapi');
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
-mongoose.connect('mongodb://localhost:27017/newsDB');
+const config = require(path.resolve('config/config'));
 
-require(path.resolve('./models/users'));
+mongoose.connect(config.databaseUrl);
+
+require(path.resolve('users'));
 
 const User = mongoose.model('User');
 
@@ -40,24 +42,24 @@ const init = async() => {
 
     let routes = [];
     const loginRoutes = require(path.resolve('routes/login'));
-    const profileRoutes = require(path.resolve('routes/profile'));
-    const articlesRoutes = require(path.resolve('routes/articles'));
+    const articlesRoutes = require(path.resolve('routes/functions'));
+    // const articlesRoutes = require(path.resolve('routes/articles'));
 
     routes.push(loginRoutes);
-    routes.push(profileRoutes);
     routes.push(articlesRoutes);
+    // routes.push(articlesRoutes);
 
     routes = _.flatMapDeep(routes, (route) => {
         return route;
     });
 
-    serve.route(routes);
+    server.route(routes);
     await server.start();
     return server;
 };
 
 init().then(server =>   {
-    console.log('Server running at:'. server.info.uri);
+    console.log('Server running at:' +  server.info.uri);
 }).catch(error =>   {
     console.log(error);
 });
